@@ -1,7 +1,7 @@
-function [y,z]=s3db_merge(x,z)
+function [y,z]=merge(x,z)
 
-%S3DB_PERMIT_MERGE calculates merging of s3db operator states
-%Syntax: [y,z]=s3db_merge(x,z)
+%MERGE calculates merging of s3db operator states
+%Syntax: [y,z]=merge(x,z)
 %   where x is a character array* where each line contains a distinct
 %   state and z (optional) lists the characters used by increasing
 %   order of importance. By default z takes the alphabetic order. Proximal
@@ -20,7 +20,7 @@ function [y,z]=s3db_merge(x,z)
 %   * it can be a cell array of strings or a single string matrix
 %
 %Example:
-%   lala=['-sn';'--S';'-yy'];s3db_permit_merge(lala)
+%   lala=['-sn';'--S';'-yy'];merge(lala)
 %   ans =
 %   -yS
 %

@@ -1,7 +1,7 @@
-function [Y,Z]=s3db_percolate(T,X,k,p)
+function [Y,Z]=percolate(T,X,k,p)
 
 %S3DB_PERMIT_CALC percolation of s3db permissions to calculate its effective value at each node
-%Syntax: [Y,Z]=s3db_percolate(T,X,k)
+%Syntax: [Y,Z]=percolate(T,X,k)
 %   T is a binary transition square matrix and X is the vector array with
 %   the permissions. Note that this function works both with migrated and
 %   unmigrated permissions. The third input argument indicates the length
@@ -86,9 +86,9 @@ T=T==1; %in case T was provided in a non-binary format
 % Find which transitions need computing
 for g=2:100 %set maximum number of iterations here
     for j=1:n %for each column of the transition matrix
-        Xj=s3db_migrate(X{j},k,0); %include one's own (no migration needed, it is there already
+        Xj=migrate(X{j},k,0); %include one's own (no migration needed, it is there already
         for i=[find(T(:,j))]' %for those found to end in the j node
-            Xj=[Xj,{s3db_migrate(Z{i,g-1},k,1)}]; % migrate permissions into it
+            Xj=[Xj,{migrate(Z{i,g-1},k,1)}]; % migrate permissions into it
         end
         Z(j,g)={s3db_merge(Xj)};
     end

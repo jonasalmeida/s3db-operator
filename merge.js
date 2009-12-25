@@ -8,13 +8,13 @@
 // Note: console.log commands will report progress back to console if active, 
 //       for example, in Firefox, using the firebug addon.
 //
-// Examples: merge("b,c,C,D") -> "C";  merge("b,cd,Ca,DcA") -> ["C", "d", "A"]
-//           merge(["b","cd","Ca","DcA"]) -> ["C", "d", "A"]
+// Examples: merge("b,c,C,D") -> "C";  merge("b,cd,Ca,DcA") -> "CdA"
+//           merge(["b","cd","Ca","DcA"]) -> "CdA"
 //           in the last two examples the console, if active, would show:
 //
-//              merge(b,c,C,D)=C
-//              merge(-,d,a,c)=d
-//              merge(-,-,-,A)=A
+//              merge("b,c,C,D")="C"
+//              merge("-,d,a,c")="d"
+//              merge("-,-,-,A")="A"
 //
 // Jonas Almeida Dec 2009
 
@@ -61,6 +61,10 @@ function merge(x) {
 		if (y.length==0) {y="-"}; // the null state is assigned to the abcense of states
 	}
 	
+	if (typeof(y)!=="string") { // convert array to string
+		y=y.join("")
+	} 
+
 	return y;	
 }
 
