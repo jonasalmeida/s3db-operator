@@ -20,7 +20,7 @@ function [y,z]=merge(x,z)
 %   * it can be a cell array of strings or a single string matrix
 %
 %Example:
-%   lala=['-sn';'--S';'-yy'];merge(lala)
+%   lala=['-sn';'--S';'-yy'];lala=['-sn';'--S';'-yy']
 %   ans =
 %   -yS
 %
