@@ -35,7 +35,10 @@ function migrate(x,m,g) {
 	else if (M1===0) { // if there are fewer digits that the defenition of state requires
 		for (var i=L; i<m; i++) {x+=x[i-1]};
 	}
-	else if (M1>1) {x=x.slice(m,L)} // slice off parental state
+	else if (M1>0&M2>1) {
+		if (M1===1) {for (var i=L; i<2*m; i++) {x+=x[i-1]}} // just for aestetics, to make sure child state is return with all indexes filled in
+		x=x.slice(m,x.length); // slice off parental state
+	}
 	
 	// else child state = parent state
 
