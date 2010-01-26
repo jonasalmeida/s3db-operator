@@ -19,7 +19,6 @@
 //
 // Jonas Almeida Dec 2009
 
-console.log("migrate.js loaded")
 
 function migrate(x,m,g) {
 	if (!m) {var m=1}
@@ -43,7 +42,7 @@ function migrate(x,m,g) {
 	// else child state = parent state
 
 	if (g>1) { // if additional migrations are to be calculated
-	    console.log("g="+g+": "+x); //and returned to the console for inspection if you are using, say, firebug
+	    //console.log("g="+g+": "+x); //and returned to the console for inspection if you are using, say, firebug
 		x=migrate(x,m,g-1);
 	} 
 
@@ -51,4 +50,5 @@ function migrate(x,m,g) {
 }
 
 
+console.log("migrate.js loaded")
 

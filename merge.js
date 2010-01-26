@@ -18,7 +18,6 @@
 //
 // Jonas Almeida Dec 2009
 
-console.log("merge.js loaded")
 
 function merge(x) {
 	//parse states
@@ -40,7 +39,7 @@ function merge(x) {
 		for (var j=0; j<n; j++) {
 			for (var i=0; i<xx.length; i++) {z[i]=xx[i][j]}
 			y[j]= merge(z);
-			console.log("merge("+z+")="+y[j]);
+			//console.log("merge("+z+")="+y[j]);
 		}
 	}
 	else { // Equation 2 in the manuscript
@@ -68,3 +67,4 @@ function merge(x) {
 	return y;	
 }
 
+console.log("merge.js loaded")
