@@ -67,4 +67,4 @@ function merge(x) {
 	return y;	
 }
 
-console.log("merge.js loaded")
+//console.log("merge.js loaded")

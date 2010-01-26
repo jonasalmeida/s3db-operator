@@ -50,5 +50,5 @@ function migrate(x,m,g) {
 }
 
 
-console.log("migrate.js loaded")
+//console.log("migrate.js loaded")
 
