@@ -25,19 +25,20 @@ function merge(x) {
 	else {var xx=x} // in case x was already an array with parsed states
 	//Find out maximum size, n, of all states
 	var n = 0;
+	var m = 0;
 	for (var i=0; i<xx.length; i++) {
 		if (xx[i].length>n) {n=xx[i].length};
-	}
+		}
 	if (n>1) { // if multiple states solve one at a time
 		for (var i=0; i<xx.length; i++) { // add blank states if missing
 			for (var j=xx[i].length; j<n; j++) {
-				xx[i]=xx[i]+"-";				
+				xx[i]+="-";				
 			}
 		}
 		z = new Array; // singular states collected here, to solve one at a time
 		y = new Array; // merged states collected here;
 		for (var j=0; j<n; j++) {
-			for (var i=0; i<xx.length; i++) {z[i]=xx[i][j]}
+			for (var i=0; i<xx.length; i++) {z[i]=xx[i].slice(j,j+1)}
 			y[j]= merge(z);
 			//console.log("merge("+z+")="+y[j]);
 		}

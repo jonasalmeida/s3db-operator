@@ -32,14 +32,18 @@ function migrate(x,m,g) {
 		for (var i=0; i<m; i++) {x+="-"}
 	}
 	else if (M1===0) { // if there are fewer digits that the defenition of state requires
-		for (var i=L; i<m; i++) {x+=x[i-1]};
+		for (var i=L; i<m; i++) {
+			//x+=x[i-1] // IE can't handle [] indexes oon strings so we'll use ugglier splice method
+			x+=x.slice(i-1,i);
+			};
 	}
 	else if (M1>0&M2>1) {
-		if (M1===1) {for (var i=L; i<2*m; i++) {x+=x[i-1]}} // just for aestetics, to make sure child state is return with all indexes filled in
+		if (M1===1) {for (var i=L; i<2*m; i++) {x+=x.slice(i-1,i)}} // just for aestetics, to make sure child state is return with all indexes filled in
 		x=x.slice(m,x.length); // slice off parental state
 	}
-	
+
 	// else child state = parent state
+	
 
 	if (g>1) { // if additional migrations are to be calculated
 	    //console.log("g="+g+": "+x); //and returned to the console for inspection if you are using, say, firebug

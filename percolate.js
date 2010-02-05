@@ -1,24 +1,16 @@
 // PERCOLATE finds steady state solution for the propagation of s3db operator states
 //
-//
-//
-// Syntax: child_state=migrate(parent_state,m,g)
-// Description: migrates s3db operator states between a parent and its child
-//              entities, as described by Equation 6. The function has two 
-//              additional, optional, input arguments to set the state's length,m,
-//              and the number of generations, g, i.e. consecutive migrations
-//              to be calculated.
-//
-// Note: console.log commands will report progress back to console if active, 
-//       for example, in Firefox, using the firebug addon.
-//
-// Examples: merge("b,c,C,D") -> "C";  merge("b,cd,Ca,DcA") -> "CdA"
-//           merge(["b","cd","Ca","DcA"]) -> "CdA"
-//           in the last two examples the console, if active, would show:
-//
-//              merge("b,c,C,D")="C"
-//              merge("-,d,a,c")="d"
-//              merge("-,-,-,A")="A"
+// Syntax: S=percolate(T,S,m)
+// Description: Percolates states using transition matrix (Eq. 4) untill steady state
+//              solution is found (Eq. 7). The percolation process corresponds to 
+//              migrating states between entities according to links specified by 
+//              the transition matrix, T, and then merging them with native states.
+//              
+//              This function is written to store, and use the T (transition matrix), 
+//              S (entity states), and m (number of operators) input arguments as 
+//              attributes of teh function itself. Therefore, if percolate is called
+//              with no arguments, i.e. percolate(), those function attributes will 
+//              be retrieved and updated.
 //
 // Jonas Almeida Dec 2009
 
@@ -48,7 +40,8 @@ percolate.iterate = function (T,Sx,m) { // EQUATION 4: Sy = T x Sx , m = number 
 		var Si = new Array;
 		Si[0]=Sx[i]; // the state currently native to the ith entity
 		for (var j=0; j<T[i].length; j++) {
-			if (T[i][j]===1) {Si[Si.length]=migrate(Sx[j],m)}
+			if (T[i][j]===1) {
+				Si[Si.length]=migrate(Sx[j],m)}
 		}
 		Sy[i]=merge(Si);
 	}
@@ -228,4 +221,4 @@ percolate.remove_element_by_id=function (id) {
 	return false;
 }
 
-console.log('percolate.js loaded');
+//console.log('percolate.js loaded');
