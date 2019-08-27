@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> S3DB operator state propagation </TITLE>
+  <META NAME="Author" CONTENT="Jonas S Almeida">
+  <META NAME="Keywords" CONTENT="S3DB operators">
+  <META NAME="Description" CONTENT="The propagation of S3DB operator states is resolved by three individul functions - merge, migrate and percolate. This browser-based application dissects the functioning of all three with alphabetic indexes and propagation topologies chosen by the user.">
+  <style type="text/css">
+	p {font-family:Verdana}
+	.calc {color:blue;font-family:"Courier New";font-weight:bold;font-size:16;font-style:normal}
+	input {color:blue;font-family:"Courier New";font-weight:bold;font-size:16}
+	/*body {}*/
+  </style>
+  <script src=merge.js></script>
+  <script src=migrate.js></script>
+  <script src=percolate.js></script>
+  
+ </HEAD>
+
+ <BODY>
+ <h1>Propagation of S3DB operator states [<a href="https://github.com/jonasalmeida/s3db-operator" target="_blank">source</a>]</h1>
+   <p>Original propagation UI <a href="propagation.html" target="_blank">here</a>.</p>
+   <p>The propagation of <a href="https://github.com/jonasalmeida/s3db-operator" target="_blank"><b>S3DB operator states</b></a> is resolved by three individual functions - <a href=#merge>merge</a>, <a href=#migrate>migrate</a> and <a href=#percolate>percolate</a> [<a href="http://www.ncbi.nlm.nih.gov/pubmed/20646315" target="_blank">PMID 20646315</a>].</p>
+ <p>This browser-based application dissects the functioning of all three, with the alphabetic indexes and propagation topologies chosen by the user. All three functions are javascript implementations of the original m-code versions, links provided.</p>
+<hr><a name=merge></a>
+<h2>1. Merge</h2>
+   <p>An operator state describes the relationship between a user and an S3DB entity. <b style="color:navy;background-color:yellow">Its alphabetic order indicates precedence, and its lower or upper case will indicate, respectively, recessive or dominant nature</b>. See <b>Equation 2</b> for calculation [<a href="http://www.ncbi.nlm.nih.gov/pubmed/20646315" target=_blank>PMID 20646315</a>]. Code used here can be inspected at <a href="merge.js">merge.js</a>. Original m-code:<a href="https://github.com/jonasalmeida/s3db-operator/blob/master/merge.m">merge.m</a>. Note that the calulcation will also work for multiple operators symultaneously, as can be verified by trying more than one index between two commas. Note also abcense of a state (the null state) is indicated by "-".</p>
+<p>Comma-delimited states: <input id="statesToMerge" style="color:blue" type=text value="b,c,C,D"> <input type="button" value="Merge" onclick="document.getElementById('mergedState').innerHTML=merge(document.getElementById('statesToMerge').value)"></p>
+<p>Merged State: <span id=mergedState class=calc></span></p>
+<hr><a name=migrate></a>
+<h2>2. Migrate</h2>
+<p>If the parent state has only one index, say "c", then the migration of state from one entity to another will be the simple comunication of the parent entity state to the child entity. This comunication can be made more expressive by using multiple indexes, which will cause all indexes but the first to be passed to the child entities (<b>Equation 5</b>). Additional expressiveness is accomodated to enable the state migration to be defined for multiple operators simultaneously (<b>Equation 6</b>). In the application below there is a third parameter indicating how many generations of such consecutive communications are to be calculated. The code used can be inspected at <a href="migrate.js">migrate.js</a> and the original m-code at <a href="https://github.com/jonasalmeida/s3db-operator/blob/master/migrate.m" target="_blank">migrate.m</a>.</p>
+<p>Parent State: <input id="statesToMigrate" style="color:blue" size="10" type=text value="a">, Number of operators: <input id="numOfOperators" style="color:blue" size="3" type=text value="1">, Number of generations: <input id="numOfGenerations" style="color:blue" size="3" type=text value="1"> <input type="button" value="Migrate" onclick="document.getElementById('migrateState').innerHTML=migrate(document.getElementById('statesToMigrate').value,document.getElementById('numOfOperators').value,document.getElementById('numOfGenerations').value)"></p>
+<p>State communicated to child: <span id=migrateState class=calc></span></p>
+
+<hr><a name=percolate></a>
+<h2>3. Percolate</h2>
+<p> This last function, <a href="percolate.js" target="_blank">percolate.js</a> and the original <a href="https://github.com/jonasalmeida/s3db-operator/blob/master/percolate.m" target="_blank">percolate.m</a>, identifies the steady state solution for the propagation of operator states. Recalling <b>Equations 4 to 6</b>, in each iteration of the propagation <i><b>ChildState= merge(ChildState,migrate(T x ParentState))</i></b> takes place, where T is the Boolean transition matrix defined by the relationshps of the core model (<b>Fig 2, Table 1</b>).</p><p>Note that in the application below the Transition matrix, T, is defined generically and can therefore be defined differently from that of the core model to explore alternative topologies for the propagation.</p>
+<p>Number of<br>Entities: <input id="numOfEntities" style="color:blue" size="3" type=text value="7"> ; Operators:<input id="numOfOperatorsPercolating" style="color:blue" size="3" type=text value="1"><br> <input type="button" value="Create T" onclick="percolate.GUI('percolateDiv',document.getElementById('numOfEntities').value);document.location.href=document.location.href.split('#')[0]+'#end_of_page'"><input type="button" value="Use S3DB's" onclick="percolate.GUI('percolateDiv',7);percolate.s3dbT();document.location.href=document.location.href.split('#')[0]+'#end_of_page'"></p><div id=percolateDiv></div>
+<a name=end_of_page id=end_of_page></a>
+</BODY>
+
+</HTML>
